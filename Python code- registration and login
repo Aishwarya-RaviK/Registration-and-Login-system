@@ -1,0 +1,87 @@
+# Registration block 
+def register():
+    db= open("E:/Programs/databse_file.txt","r")
+    User_name =input("Enter a user_name:")
+    Password=input("Enter the password:")
+    u=[]
+    p=[]
+    for each in db:
+        a,b = each.split(", ")
+        b=b.strip(", ")
+        u.append(a)
+        p.append(b)
+    data=dict(zip(a,b))
+    # User_name validation
+    if(User_name in u):
+        print("User-name exists login:")
+        login()
+    elif('@.' not in User_name and '@'in User_name and '.' in User_name and User_name[0].isalpha()):
+        print("User_name is valid")
+    else:
+        print("User_name is either invalid or doesn't exist try registering again")
+        register()
+    # Password validation
+    t=len(Password)
+    Symbols={'.','_',':','-','@','#','$','%','^','&',"*",'!'}
+    if(t<5 or t>=16):
+        print("Password invalid")
+    elif(not any (char.isdigit() for char in Password)):
+        print("Password must have one digit")
+    elif(not any (char.isupper() for char in Password)):
+        print("Password must have one Upper case")
+    elif(not any (char.islower() for char in Password)):
+        print("password must have one lower character")
+    elif(not any (char in Symbols for char in Password)):
+        print("Password must have a special character")
+    else:
+        db=open("E:/Programs/databse_file.txt","a")
+        db.write(User_name+", "+Password+"\n")
+        print("Registered Successfully")
+    
+# Login block
+def login():
+    db=open("E:/Programs/databse_file.txt","r")
+    u=[]
+    p=[]
+    for each in db:
+        a,b = each.split(", ")
+        b=b.strip(", ")
+        u.append(a)
+        p.append(b)
+    data=dict(zip(a,b))
+    User_name=input("Enter your user_name:")
+    Password=("Enter the password:")
+    if ((User_name,Password)not in  a):
+            print("Invalid password")
+            forgot_pass()
+    else:
+            print("Login successful")
+   
+# Forgot_password
+def forgot_pass():
+    db=open("E:/Programs/databse_file.txt","r")
+    u=[]
+    p=[]
+    for each in db:
+        a,b = each.split(", ")
+        b=b.strip(", ")
+        u.append(a)
+        p.append(b)
+    data=dict(zip(a,b))
+    User_name=("Enter a valid user_name")
+    if(User_name in u): 
+        Password=("Enter a new password:")  
+        db=db.open("E:/Programs/databse_file.txt","a")
+        db.write(User_name+", "+Password+"\n")
+    else:
+        print("User_name doesnot exist")
+        register()
+
+
+# main function
+#choice to make ("1. Register ", "2. Login") 
+choice=int(input("Enter your choice:"))
+if(choice==1):
+   register()
+else:
+   login()   
