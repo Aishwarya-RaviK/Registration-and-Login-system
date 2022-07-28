@@ -51,7 +51,7 @@ def login():
     data=dict(zip(a,b))
     User_name=input("Enter your user_name:")
     Password=("Enter the password:")
-    if ((User_name,Password)not in  db):
+    if ((User_name+", "+Password)not in  db):
             print("Invalid password")
             forgot_pass()
     else:
